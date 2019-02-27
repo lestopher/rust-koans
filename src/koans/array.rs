@@ -22,7 +22,8 @@ fn array_empty() {
 #[should_panic]
 fn out_of_index() {
     let arr: [&'static str; 5] = ["rust", "is", "mostly", "for", "nerds"];
-    arr[4];
+    let i = 5;
+    arr[i];
 }
 
 // Elements can be replaced in an array at a certain index.
@@ -69,7 +70,7 @@ fn array_filter() {
 #[test]
 fn array_filter_map() {
     let arr: [u8; 5] = [2, 1, 2, 1, 2];
-    let mut iterator = arr.iter().filter_map(|&x| if x == 1 { Some(x) } else { None });
+    let mut iterator = arr.iter().filter_map(|&x| if x == 1 { Some(3) } else { None });
     assert!(iterator.next() == Some(3));
     assert!(iterator.next() == Some(3));
     assert!(iterator.next().is_none());
@@ -107,8 +108,10 @@ fn for_loops_two() {
     let words: [&'static str; 3] = ["I", "love", "Rust"];
     let mut sentence: String = String::new();
     for word in words.iter() {
-        sentence += word;
+        sentence.push_str(word);
+        sentence.push_str(" ");
     }
+    sentence = sentence.trim().to_string();
     println!("{:?}", sentence);
     assert!(sentence == "I love Rust".to_string());
 }
